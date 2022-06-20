@@ -1,0 +1,51 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @product %>
+
+  <% if user_signed_in? %>
+    <% if @product.favorited?(current_user) %>
+      <%= form_with url: product_favorites_path(@product.id), method: :delete do |form| %>
+        <%= form.hidden_field :product_id, value: @product.id %>
+        <input type="submit" name="" value="❤︎" style="color:red;">
+      <% end %>
+    <% else %>
+      <%= form_with url: product_favorites_path(@product.id), method: :post do |form| %>
+        <%= form.hidden_field :product_id, value: @product.id %>
+        <input type="submit" name="" value="❤︎">
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= link_to new_user_session_path, method: :get do %>
+      <span>❤︎</span>
+    <% end %>
+  <% end %>
+<br>
+  <% if user_signed_in? %>
+    <% if @product.inTheCart?(current_user) %>
+      <%= form_with url: delete_item_path, method: :post do |form| %>
+        <%= form.hidden_field :product_id, value: @product.id %>
+        <input type="submit" name="" value="カートから削除する">
+      <% end %>
+    <% else %>
+      <% if @product.stock > 0 %>
+        <%= form_with url: add_item_path, method: :post do |form| %>
+          <%= form.hidden_field :product_id, value: @product.id %>
+          <select name="quantity">
+            <% (1..@product.stock).each do |i| %>
+            <option value="<%= i %>"><%= i %></option>
+            <% end %>
+          </select>
+          <input type="submit" name="" value="カートに入れる">
+        <% end %>
+      <% else %>
+        <p>在庫なし</p>
+      <% end %>
+    <% end %>
+    <% else %>
+      <%= link_to new_user_session_path, method: :get do %>
+        <span>カートに入れる</span>
+      <% end %>
+    <% end %>
+<br>
+<br>
+  <%= link_to "TOPに戻る", root_path %>

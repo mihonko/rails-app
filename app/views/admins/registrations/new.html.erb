@@ -1,0 +1,40 @@
+<h2>管理者新規登録</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+  <table>
+    <tr>
+      <th><%= f.label :email %></th>
+      <td>
+        <%= f.text_field :email, autofocus: true, autocomplete: "email" %>
+        <% if resource.errors.include?(:email) %>
+          <p class="error_message"><%= resource.errors.full_messages_for(:email).first %></p>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th><%= f.label :password %></th>
+      <td>
+        <%= f.password_field :password, autocomplete: "new-password" %>（6文字以上）
+        <% if resource.errors.include?(:password) %>
+          <p class="error_message"><%= resource.errors.full_messages_for(:password).first %></p>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th><%= f.label :password_confirmation %></th>
+      <td>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        <% if resource.errors.include?(:password_confirmation) %>
+          <p class="error_message"><%= resource.errors.full_messages_for(:password_confirmation).first %></p>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+  <br>
+  <div class="actions">
+    <%= f.submit "登録する" %>
+  </div>
+<% end %>
+<br>
+<%= render "admins/shared/links" %>

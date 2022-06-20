@@ -1,0 +1,65 @@
+
+<h1>注文確認画面</h1>
+
+<%= form_with url: order_complete_path, method: :post do |form| %>
+
+<h2>商品一覧</h2>
+
+<% @cart_items.each do |cart_item| %>
+
+<li class="list-none">
+    <%= cart_item.product.name %>：
+    <%= "#{cart_item.product.price}円" %> ×
+    <%= cart_item.quantity %>個（小計：<%= cart_item.sum_of_price %>円）
+</li>
+
+<% end %>
+
+<p><%= "合計：#{@total}円" %></p>
+
+<hr>
+
+<h2>送付先</h2>
+
+<% if @address.nil? %>
+
+名前：<%= @user.last_name %> <%= @user.first_name %><br>
+電話番号：<%= @user.phone_number %><br>
+郵便番号：<%= @user.postal_code %><br>
+住所：<%= @user.prefecture %><%= @user.city %><%= @user.address1 %><%= @user.address2 %>
+
+<% else %>
+
+名前：<%= @address.last_name %> <%= @address.first_name %><br>
+電話番号：<%= @address.phone_number %><br>
+郵便番号：<%= @address.postal_code %><br>
+住所：<%= @address.prefecture %><%= @address.city %><%= @address.address1 %><%= @address.address2 %>
+
+<% end %>
+<hr>
+
+<h2>クレジットカード</h2>
+
+<table>
+  <tr>
+    <th>ブランド</th>
+    <td><%= @card.brand %></td>
+  </tr>
+  <tr>
+    <th>カード番号</th>
+    <td>********<%= @card.last4 %></td>
+  </tr>
+  <tr>
+    <th>有効期限</th>
+    <td><%= @card.exp_month %>月/<%= @card.exp_year %>年</td>
+  </tr>
+</table>
+
+<hr>
+
+  <input type="submit" name="" value="注文を完了する">
+<% end %>
+
+<hr>
+
+<%= link_to "注文画面に戻る", order_path %>

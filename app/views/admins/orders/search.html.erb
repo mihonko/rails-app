@@ -1,0 +1,35 @@
+<h1>注文一覧</h1>
+
+<%= search_form_for @q, url: search_admins_orders_path do |f| %>
+  <%= f.label :user_last_name_cont, '注文者名（姓）' %>
+  <%= f.search_field :user_last_name_cont %>
+  <%= f.label :user_first_name_cont, '注文者名（名）' %>
+  <%= f.search_field :user_first_name_cont %>
+  <br>
+  <%= f.submit '検索' %>
+<% end %>
+<br>
+<table>
+  <thead>
+    <th><%= sort_link(@q, :id, "注文ID") %></th>
+    <th><%= sort_link(@q, :last_name, "注文者名") %></th>
+    <th>アクション</th>
+  </thead>
+  <tbody>
+    <% @results.each do |order| %>
+    <tr>
+      <td><%= order.id %></td>
+      <td><%= order.user.last_name %> <%= order.user.first_name %></td>
+      <td>
+        <%= link_to "詳細", admins_order_path(order) %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @results %>
+<hr>
+
+<br>
+
+<%= link_to "TOPに戻る", admins_path %>

@@ -1,0 +1,31 @@
+<div id="<%= dom_id product %>">
+  <p>
+    <strong>ID:</strong>
+    <%= product.id %>
+  </p>
+
+  <p>
+    <strong>商品名:</strong>
+    <%= product.name %>
+  </p>
+
+  <p>
+    <strong>詳細:</strong>
+    <%= simple_format(product.detail) %>
+  </p>
+
+  <p>
+    <strong>価格:</strong>
+    <%= product.price %>円
+  </p>
+
+  <p>
+    <strong>画像:</strong>
+      <% if product.image? %>
+        <%= image_tag product.image.url %>
+      <% else %>
+        未登録
+      <% end %>
+  </p>
+
+</div>

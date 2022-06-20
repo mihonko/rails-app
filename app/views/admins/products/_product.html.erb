@@ -1,0 +1,32 @@
+<table>
+  <tr>
+    <th>商品ID</th>
+    <td><%= product.id %></td>
+  </tr>
+  <tr>
+    <th>商品名</th>
+    <td><%= product.name %></td>
+  </tr>
+  <tr>
+    <th>詳細</th>
+    <td><%= simple_format(product.detail) %></td>
+  </tr>
+  <tr>
+    <th>価格</th>
+    <td><%= product.price %>円</td>
+  </tr>
+  <tr>
+    <th>画像</th>
+    <td>
+      <% if product.image? %>
+        <%= image_tag product.image.url %>
+      <% else %>
+        未登録
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th>在庫</th>
+    <td><%= product.stock %></td>
+  </tr>
+</table>

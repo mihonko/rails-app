@@ -1,0 +1,54 @@
+<h2>管理者情報編集</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+
+  <table>
+    <tr>
+      <th><%= f.label :email %></th>
+      <td>
+        <%= f.text_field :email, autofocus: true, autocomplete: "email" %>
+        <% if resource.errors.include?(:email) %>
+          <p class="error_message"><%= resource.errors.full_messages_for(:email).first %></p>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th><%= f.label :password %><br>（変更する場合入力）</th>
+      <td>
+        <%= f.password_field :password, autocomplete: "new-password" %>（6文字以上）
+        <% if resource.errors.include?(:password) %>
+          <p class="error_message"><%= resource.errors.full_messages_for(:password).first %></p>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th><%= f.label :password_confirmation %></th>
+      <td>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        <% if resource.errors.include?(:password_confirmation) %>
+          <p class="error_message"><%= resource.errors.full_messages_for(:password_confirmation).first %></p>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th><%= f.label :current_password %></th>
+      <td>
+        <%= f.password_field :current_password, autocomplete: "current-password" %>
+        <% if resource.errors.include?(:current_password) %>
+          <p class="error_message"><%= resource.errors.full_messages_for(:current_password).first %></p>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+  <br>
+  <div class="actions">
+    <%= f.submit "更新する" %>
+  </div>
+<% end %>
+
+<hr>
+<h3>退会</h3>
+<p>退会しますか？ <%= button_to "退会する", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+
+<hr>
+<%= link_to "戻る", :back %>

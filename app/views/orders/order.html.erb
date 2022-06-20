@@ -1,0 +1,73 @@
+<script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
+
+<h1>注文画面</h1>
+
+<%= form_with url: order_confirm_path, method: :post, class: :'h-adr' do |form| %>
+
+<h2>送付先</h2>
+
+<p class="error_message"><%= flash[:address] %></p>
+
+<p>会員情報の住所</p>
+
+<%= form.radio_button :address_id, 0, checked: true %>
+<%= form.label :address_id, 'この送付先を使用する', value: 0 %>
+<br>
+名前：<%= @user.last_name %> <%= @user.first_name %><br>
+電話番号：<%= @user.phone_number %><br>
+郵便番号：<%= @user.postal_code %><br>
+住所：<%= @user.prefecture %><%= @user.city %><%= @user.address1 %><%= @user.address2 %>
+
+<hr>
+
+<p>登録済みの住所</p>
+
+<% @addresses.each do |address| %>
+<li class="list-none">
+    <%= form.radio_button :address_id, address.id %>
+    <%= form.label :address_id, 'この送付先を使用する', value: address.id %>
+    <br>
+    名前：<%= address.last_name %> <%= address.first_name %><br>
+    電話番号：<%= address.phone_number %>
+    郵便番号：<%= address.postal_code %><br>
+    住所：<%= address.prefecture %><%= address.city %><%= address.address1 %><%= address.address2 %>
+</li>
+
+<% end %>
+<br>
+<%= link_to '新しい送付先を登録する', add_address_path %>
+
+<hr>
+
+<h2>クレジットカード</h2>
+
+<p class="error_message"><%= flash[:card] %></p>
+
+<% if @cards.nil? %>
+  <%= link_to '新しいクレジットカードを登録する', add_card_path %>
+<% else %>
+
+  <% @cards.each do |card| %>
+    <li class="list-none">
+        <%= form.radio_button :card_id, card.id %>
+        <%= form.label :card_id, 'この送付先を使用する', value: card.id %><br>
+        <%= card.brand %><br>
+        **** **** **** <%= card.last4 %><br>
+        <%= card.exp_month %>月/<%= card.exp_year %>年<br>
+    </li>
+  <% end %>
+  <br>
+  <%= link_to '新しいクレジットカードを登録する', add_card_path %>
+<% end %>
+<hr>
+
+  <% if @cards.nil? %>
+    <p>クレジットカードが未登録です</p>
+  <% else %>
+    <input type="submit" name="" value="注文確認画面へ進む">
+  <% end %>
+<% end %>
+
+<hr>
+
+<%= link_to "カート画面に戻る", cart_path %>

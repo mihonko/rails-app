@@ -1,0 +1,26 @@
+<h1>Top</h1>
+
+<h2>ユーザー</h2>
+<% if user_signed_in? %>
+  <%= link_to '会員情報編集', edit_user_registration_path %>
+  <%= link_to '送付先', address_list_path %>
+  <%= link_to 'クレジットカード', card_list_path %>
+  <%= link_to 'お気に入り', favorite_list_path %>
+  <%= link_to '注文履歴', order_history_list_path %>
+  <%= link_to 'カート', cart_path %>
+  <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+<% else %>
+  <%= link_to 'ログイン', new_user_session_path %>
+  <%= link_to '会員登録', new_user_registration_path %>
+<% end %>
+
+<h2>管理者</h2>
+<%= link_to '管理画面', admins_path %>
+
+<h2>商品一覧</h2>
+<% @products.each do |product| %>
+    <p>
+      <%= link_to product.name, product %>
+    </p>
+<% end %>
+<%= paginate @products %>

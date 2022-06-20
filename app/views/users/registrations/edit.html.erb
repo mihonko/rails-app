@@ -1,0 +1,80 @@
+<h2>ユーザー情報編集</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "h-adr" }) do |f| %>
+
+  <table>
+    <tr>
+      <th>名前</th>
+      <td>
+        <%= f.text_field :last_name %> <%= f.text_field :first_name %>
+        <% if resource.errors.include?(:last_name) %>
+          <p class="error_message"><%= resource.errors.full_messages_for(:last_name).first %></p>
+        <% end %>
+        <% if resource.errors.include?(:first_name) %>
+          <p class="error_message"><%= resource.errors.full_messages_for(:first_name).first %></p>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th>電話番号</th>
+      <td>
+        <%= f.telephone_field :phone_number %>（ハイフンなし）
+        <% if resource.errors.include?(:phone_number) %>
+          <p class="error_message"><%= resource.errors.full_messages_for(:phone_number).first %></p>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th>住所</th>
+      <td>
+        <span class="p-country-name" style="display:none;">Japan</span>
+        郵便番号（ハイフンなし）<br>
+        <%= f.text_field :postal_code, class: "p-postal-code" %><br>
+        <% if resource.errors.include?(:postal_code) %>
+          <p class="error_message"><%= resource.errors.full_messages_for(:postal_code).first %></p>
+        <% end %>
+        都道府県
+        <%= f.text_field :prefecture, class: "p-region" %><br>
+        <% if resource.errors.include?(:prefecture) %>
+          <p class="error_message"><%= resource.errors.full_messages_for(:prefecture).first %></p>
+        <% end %>
+        市区町村
+        <%= f.text_field :city, class: "p-locality" %><br>
+        <% if resource.errors.include?(:city) %>
+          <p class="error_message"><%= resource.errors.full_messages_for(:city).first %></p>
+        <% end %>
+        町名番地
+        <%= f.text_field :address1, class: "p-street-address p-extended-address" %><br>
+        <% if resource.errors.include?(:address1) %>
+          <p class="error_message"><%= resource.errors.full_messages_for(:address1).first %></p>
+        <% end %>
+        建物名等<%= f.text_field :address2 %><br>
+        <% if resource.errors.include?(:address2) %>
+          <p class="error_message"><%= resource.errors.full_messages_for(:address2).first %></p>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th><%= f.label :email %></th>
+      <td>
+        <%= f.text_field :email, autofocus: true, autocomplete: "email" %>
+        <% if resource.errors.include?(:email) %>
+          <p class="error_message"><%= resource.errors.full_messages_for(:email).first %></p>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+
+  <div class="actions">
+    <%= f.submit "更新する" %>
+  </div>
+<% end %>
+
+<br>
+<%= link_to "TOPに戻る", root_path %>
+
+<hr>
+
+<h3>退会</h3>
+
+<p>退会しますか？ <%= button_to "退会する", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>

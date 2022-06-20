@@ -1,0 +1,13 @@
+<h1>商品詳細</h1>
+
+<%= render @product %>
+
+<div>
+  <br>
+  <%= link_to "商品編集", edit_admins_product_path(@product) %>
+  <br>
+  <br>
+  <%= button_to "商品を削除する", admins_product_path, method: :delete %>
+  <br>
+  <%= link_to "商品一覧に戻る", admins_products_path %>
+</div>

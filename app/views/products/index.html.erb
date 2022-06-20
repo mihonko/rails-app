@@ -1,0 +1,17 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>商品一覧</h1>
+
+<div id="products">
+  <% @products.each do |product| %>
+    <%= render product %>
+    <p>
+      <%= link_to "詳細", product %>
+    </p>
+  <% end %>
+</div>
+
+<br>
+<br>
+
+<%= link_to "TOPに戻る", root_path %>

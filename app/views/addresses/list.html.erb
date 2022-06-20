@@ -1,0 +1,22 @@
+<h1>送付先一覧</h1>
+
+<%= link_to '新規登録', add_address_path %>
+
+<% @addresses.each do |address| %>
+
+<hr>
+
+<li class="list-none">
+    名前：<%= address.last_name %> <%= address.first_name %><br>
+    電話番号：<%= address.phone_number %><br>
+    郵便番号：<%= address.postal_code %><br>
+    住所：<%= address.prefecture %><%= address.city %><%= address.address1 %><%= address.address2 %>
+
+    <%= button_to "削除", delete_address_path(address_id: address.id), method: :post, data: { confirm: "商品を削除しますか？" } %>
+</li>
+
+<% end %>
+
+<hr>
+
+<%= link_to "TOPに戻る", root_path %>

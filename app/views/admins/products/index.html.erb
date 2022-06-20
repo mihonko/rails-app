@@ -1,0 +1,39 @@
+<h1>商品一覧</h1>
+
+<%= search_form_for @q, url: search_admins_products_path do |f| %>
+  <%= f.label :name_cont, '商品名' %>
+  <%= f.search_field :name_cont %>
+  <br>
+  <%= f.submit '検索' %>
+<% end %>
+<br>
+<table>
+  <thead>
+    <th><%= sort_link(@q, :id, "商品ID") %></th>
+    <th><%= sort_link(@q, :name, "商品名") %></th>
+    <th><%= sort_link(@q, :price, "価格") %></th>
+    <th>アクション</th>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+    <tr>
+      <td><%= product.id %></td>
+      <td><%= product.name %></td>
+      <td><%= product.price %>円</td>
+      <td>
+        <%= link_to "詳細", admins_product_path(product) %>
+        <%= link_to "編集", edit_admins_product_path(product) %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @products %>
+<hr>
+
+<%= link_to "新規登録", new_admins_product_path %>
+
+<br>
+<br>
+
+<%= link_to "TOPに戻る", admins_path %>

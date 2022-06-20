@@ -1,0 +1,26 @@
+<h1>クレジットカード一覧</h1>
+
+
+
+<% if @cards.nil? %>
+  <p>登録済みのクレジットカードはありません。</p>
+  <%= link_to '新規登録', add_card_path %>
+<% else %>
+  <% @cards.each do |card| %>
+
+  <hr>
+
+  <li class="list-none">
+      <%= card.brand %><br>
+      **** **** **** <%= card.last4 %><br>
+      <%= card.exp_month %>月/<%= card.exp_year %>年<br>
+      <%= button_to "削除", delete_card_path(card_id: card.id), method: :post, data: { confirm: "商品を削除しますか？" } %>
+  </li>
+
+  <% end %>
+  <hr>
+  <%= link_to '追加登録', add_card_path %>
+<% end %>
+<br>
+<br>
+<%= link_to "TOPに戻る", root_path %>

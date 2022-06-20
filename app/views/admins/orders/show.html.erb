@@ -1,0 +1,67 @@
+<h1>注文詳細</h1>
+
+<table>
+  <tr>
+    <th>注文ID</th>
+    <td><%= @order.id %></td>
+  </tr>
+  <tr>
+    <th>注文日時</th>
+    <td><%= l @order.created_at %></td>
+  </tr>
+  <tr>
+    <th>注文者名</th>
+    <td><%= @order.user.last_name %> <%= @order.user.first_name %></td>
+  </tr>
+  <tr>
+    <th>注文者 電話番号</th>
+    <td><%= @order.user.phone_number %></td>
+  </tr>
+
+  <tr>
+    <th>送付先名</th>
+    <td><%= @order.last_name %> <%= @order.first_name %></td>
+  </tr>
+  <tr>
+    <th>送付先 電話番号</th>
+    <td><%= @order.phone_number %></td>
+  </tr>
+  <tr>
+    <th>送付先 住所</th>
+    <td>
+      〒<%= @order.postal_code %><br>
+      <%= @order.prefecture %><%= @order.city %><%= @order.address1 %><%= @order.address2 %>
+    </td>
+  </tr>
+
+  <tr>
+    <table>
+      <thead>
+        <th>商品ID</th>
+        <th>商品名</th>
+        <th>単価</th>
+        <th>個数</th>
+        <th>小計</th>
+      </thead>
+      <tbody>
+        <% @order.order_product.each do |order_product| %>
+          <tr>
+            <td><%= order_product.product.id %></td>
+            <td><%= order_product.product.name %></td>
+            <td><%= order_product.price %>円</td>
+            <td><%= order_product.quantity %></td>
+            <td><%= order_product.sum_of_price %>円</td>
+          </tr>
+        <% end %>
+        <tr>
+          <th colspan="4" style="text-align: left;">合計金額</th><td><%= @total %>円</td>
+        </tr>
+      </tbody>
+    </table>
+  </tr>
+</table>
+
+<div>
+  <br>
+  <%= link_to "注文一覧に戻る", admins_orders_path %>
+</div>

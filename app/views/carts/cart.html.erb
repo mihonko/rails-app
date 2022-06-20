@@ -1,0 +1,36 @@
+<h1>カート</h1>
+
+<p style="color: red"><%= flash[:out_of_stock] %></p>
+
+<h2>商品一覧</h2>
+
+<% if @cart_items.blank? %>
+  <p>カートに入っている商品はありません。</p>
+<% else %>
+  <% @cart_items.each do |cart_item| %>
+
+  <li class="list-none">
+      <%= cart_item.product.name %>
+      <%= "#{cart_item.product.price}円" %>
+      <%= form_with(url: update_item_url, method: :post,local: true) do |f| %>
+      <%= f.hidden_field :product_id, value: cart_item.product.id %>
+      <select name="quantity">
+        <% (1..cart_item.product.stock).each do |i| %>
+        <option value="<%= i %>" <% if i == cart_item.quantity %>selected<% end %>><%= i %></option>
+        <% end %>
+      </select>
+      <%= f.submit "更新", class: "" %>
+      <% end %>
+      <%= button_to "削除", delete_item_path(product_id: cart_item.product.id), method: :post, data: { confirm: "商品を削除しますか？" } %>
+  </li>
+
+  <% end %>
+
+  <h2><%= "合計：#{@total}円" %></h2>
+
+  <%= link_to "注文画面へ進む", order_path %>
+
+<% end %>
+<br>
+<br>
+<%= link_to "TOPに戻る", root_path %>

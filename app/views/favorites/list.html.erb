@@ -1,0 +1,18 @@
+<h1>お気に入りリスト</h1>
+
+<% if @favorites.blank? %>
+  <p>リストに入っている商品はありません。</p>
+<% else %>
+  <% @favorites.each do |favorite| %>
+
+  <li class="list-none">
+      <%= link_to favorite.product.name, favorite.product %>
+      <%= "#{favorite.product.price}円" %>
+      <%= button_to "削除", product_favorites_path(product_id: favorite.product.id), method: :delete %>
+  </li>
+
+  <% end %>
+<% end %>
+<br>
+<br>
+<%= link_to "TOPに戻る", root_path %>

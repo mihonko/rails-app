@@ -1,0 +1,27 @@
+<h1>注文履歴一覧</h1>
+
+<% if @orders.blank? %>
+  <p>注文履歴がありません。</p>
+<% else %>
+  <table>
+    <thead>
+      <th>注文ID</th>
+      <th>注文日時</th>
+      <th>アクション</th>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.id %></td>
+        <td><%= l order.created_at %></td>
+        <td>
+          <%= link_to "詳細", order_history_path(order) %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+<br>
+<br>
+<%= link_to "TOPに戻る", root_path %>
